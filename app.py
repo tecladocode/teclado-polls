@@ -2,7 +2,7 @@ import sqlite3
 from flask import Flask, render_template, request, session
 import requests
 from secrets import CLIENT_SECRET
-import create_test_data
+import create_tables
 
 
 app = Flask(__name__)

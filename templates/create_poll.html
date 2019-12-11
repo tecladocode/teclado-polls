@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Create new poll</h1>
+
+        <form method="POST">
+            <div class="form-input">
+                <label for="title">Title of poll</label>
+                <input type="text" name="title" id="title" />
+            </div>
+
+            <div class="form-input">
+                <label for="option1">Option 1</label>
+                <input type="text" name="option1" id="option1" />
+            </div>
+
+            <div class="form-input">
+                <label for="option2">Option 2</label>
+                <input type="text" name="option2" id="option2" />
+            </div>
+
+            <div class="form-input">
+                <label for="option3">Option 3</label>
+                <input type="text" name="option3" id="option3" />
+            </div>
+
+            <div class="form-input">
+                <label for="option4">Option 4</label>
+                <input type="text" name="option4" id="option4" />
+            </div>
+
+            <input type="submit" />
+        </form>
+    </div>
+{% endblock %}

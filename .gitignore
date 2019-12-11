@@ -1,0 +1,4 @@
+data.db
+*.pyc
+create_test_data.py
+.idea/

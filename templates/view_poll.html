@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+{{poll[1]}}
+
+{% for option in votes %}
+    <div class="vote-option">
+        {{ option[0] }} has {{ option[1] }} votes.
+    </div>
+{% endfor %}
+
+<a href="{{ url_for('create_poll') }}">Create new poll</a>
+</div>
+{% endblock %}

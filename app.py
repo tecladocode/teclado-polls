@@ -2,6 +2,7 @@ import sqlite3
 from flask import Flask, render_template, request, session
 import requests
 from secrets import CLIENT_SECRET
+import create_test_data
 
 
 app = Flask(__name__)
@@ -13,7 +14,7 @@ DISCORD_GET_CURRENT_USER = "https://discordapp.com/api/users/@me"
 
 CLIENT_ID = "654393272189321237"
 
-FINAL_URI = f"{DISCORD_AUTH_URL}?client_id={CLIENT_ID}&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fauthorize&response_type=code&scope=identify"
+FINAL_URI = f"{DISCORD_AUTH_URL}?client_id={CLIENT_ID}&redirect_uri=https%3A%2F%2Fteclado-polls.herokuapp.com%2Fauthorize&response_type=code&scope=identify"
 
 
 @app.route("/")
@@ -30,7 +31,7 @@ def authorize():
         'client_secret': CLIENT_SECRET,
         'grant_type': 'authorization_code',
         'code': code,
-        'redirect_uri': "http://127.0.0.1:5000/authorize",
+        'redirect_uri': "https://teclado-polls.herokuapp.com//authorize",
         'scope': 'identify'
     }
     headers = {

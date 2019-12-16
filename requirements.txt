@@ -1,3 +1,4 @@
 flask
 uwsgi
 requests
+psycopg2

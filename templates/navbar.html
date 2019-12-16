@@ -3,6 +3,13 @@
         <img src="{{ url_for('static', filename='assets/logo.svg') }}" alt="Logo" /> Teclado Polls
     </div>
     <div class="right">
-        <a class="menu-item" href="{{discord_uri}}">Log in with Discord</a>
+        <a class="menu-item" href="{{ url_for('create_poll') }}">Create poll</a>
+        {% if not session['username'] %}
+            <a class="menu-item log-in" href="{{discord_uri}}">Log in with Discord</a>
+        {% else %}
+            <a class="menu-item" href="{{ url_for('manage_polls') }}">Manage polls</a>
+            <a class="menu-item" href="{{ url_for('logout') }}">Log out</a>
+            <a class="menu-item" href="#">{{ session['username'] }}</a>
+        {% endif %}
     </div>
 </header>

@@ -3,15 +3,19 @@
 {% block content %}
     <div class="container">
         <h1>{{ title }}</h1>
-        <form class="options" method="POST" action="{{ url_for('vote') }}">
+        <form class="options" method="POST" action="{{ url_for('vote', poll_id=poll_id) }}">
         {% for option in poll %}
             <div class="option">
-                <input class="option-input" id="{{ option[3] }}" type="radio" name="vote" value="{{ option[2] }}" /><div class="checkmark"></div>
-                <label for="{{ option[3] }}">Vote for {{ option[3] }}</label>
+                <input class="option-input" id="{{ option[5] }}" type="radio" name="vote" value="{{ option[4] }}" /><div class="checkmark"></div>
+                <label for="{{ option[5] }}">Vote for {{ option[5] }}</label>
             </div>
         {% endfor %}
         <div class="right-button-container">
-            <input type="submit" />
+            {% if session['username'] %}
+                <input type="submit" />
+            {% else %}
+                <a class="form-submit-login-link" href="{{ discord_uri }}">Log in to vote</a>
+            {% endif %}
         </div>
         </form>
     </div>

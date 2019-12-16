@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Manage polls</h1>
+
+    <div class="polls">
+        {% for poll in polls %}
+            <div class="poll">
+                <h2>{{ poll[1] }}</h2>
+                <a href="{{ url_for("view_poll", poll_id=poll[0]) }}" class="view-poll">View poll</a>
+            </div>
+        {% endfor %}
+    </div>
+
+
+    <div class="right-button-container">
+        <a class="form-submit-login-link" href="{{ url_for('create_poll') }}">Create new poll</a>
+    </div>
+</div>
+{% endblock %}

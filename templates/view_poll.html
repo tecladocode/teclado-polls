@@ -2,14 +2,26 @@
 
 {% block content %}
 <div class="container">
-{{poll[1]}}
+    <h1>{{poll[1]}}</h1>
 
-{% for option in votes %}
-    <div class="vote-option">
-        {{ option[0] }} has {{ option[1] }} votes.
+    <table>
+    {% for option in votes %}
+        <tr class="vote-option">
+            <td class="vote-name">
+                {{ option[0] }}
+            </td>
+            <td class="vote-percentage">
+                {{ option[2] | int }}%
+            </td>
+            <td class="vote-chart-container">
+                <div class="vote-chart" style="width: {{ option[2] | round(0) }}%"></div>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    <div class="right-button-container">
+        <a class="form-submit-login-link" href="{{ url_for('create_poll') }}">Create new poll</a>
     </div>
-{% endfor %}
-
-<a href="{{ url_for('create_poll') }}">Create new poll</a>
 </div>
 {% endblock %}

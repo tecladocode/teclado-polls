@@ -22,9 +22,10 @@ header img {
 
 header a, header a:active {
     text-decoration: none;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid rgba(0, 0, 0, 0);
     color: black;
     padding: 2px;
+    margin-left: 20px;
 }
 
 header a:hover {
@@ -32,15 +33,25 @@ header a:hover {
     color: white;
 }
 
-.container {
-    max-width: 640px;
-    margin: 0 auto;
+.log-in {
+    border-bottom: 2px solid black;
 }
 
-.options {
+.container {
+    max-width: 640px;
+    margin: 50px auto;
     padding: 20px;
     background-color: #EEE6D5;
     border: 3px solid black;
+}
+
+form .form-input {
+    margin-bottom: 20px;
+}
+
+form .form-input label {
+    display: block;
+    margin-bottom: 5px;
 }
 
 .option {
@@ -84,14 +95,48 @@ header a:hover {
     justify-content: flex-end;
 }
 
-input[type="submit"] {
+input[type="text"] {
+    background-color: #F7EFDF;
+    border: 1px solid black;
+    font-family: "Public Sans", sans-serif;
+    padding: 5px;
+    width: 50%;
+}
+
+input[type="submit"], .form-submit-login-link {
     padding: 6px 12px;
     border: 2px solid black;
     background-color: white;
+    text-decoration: none;
+    color: black;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover, .form-submit-login-link:hover {
     background-color: black;
     color: white;
     cursor: pointer;
+}
+
+.form-submit-login-link:active {
+    color: black;
+}
+
+.vote-chart {
+    height: 1rem;
+    background-color: #EBD587;
+    border: 1px solid black;
+}
+
+.vote-name {
+    width: 25%;
+}
+
+.vote-option td {
+    vertical-align: top;
+    padding-bottom: 15px;
+}
+
+.vote-chart-container {
+    width: 100%;
+    padding-left: 20px;
 }

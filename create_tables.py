@@ -1,7 +1,7 @@
 import os
 import psycopg2
 
-DATABASE_URI = os.environ.get("DATABASE", "postgres://postgres:1234@localhost:5432/polling")
+DATABASE_URI = os.environ.get("DATABASE_URL", "postgres://postgres:1234@localhost:5432/polling")
 
 with psycopg2.connect(DATABASE_URI) as connection:
     with connection.cursor() as cur:

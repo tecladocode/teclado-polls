@@ -90,8 +90,10 @@ def vote(poll_id):
                 "INSERT INTO votes (username, discriminator, vote, poll_id) VALUES (%s, %s, %s, %s)",
                 (session['username'], session['discriminator'], selected_vote, poll_id)
             )
+            cur.execute("SELECT option_text FROM options WHERE option_id = %s;", (selected_vote,))
+            option_name = cur.fetchone()[0]
 
-    return f"You voted for {selected_vote}"
+    return render_template("vote_success.html", option=option_name)
 
 
 @app.route("/view/<int:poll_id>")

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Winner: {{ winner_username }}</h1>
+
+    <p>The winner is {{ winner_username }}, {{ winner_discriminator }}.</p>
+
+    <ul class="voters">
+        {% for voter in voters %}
+            <li>{{ voter[0] }}</li>
+        {% endfor %}
+    </ul>
+
+    <div class="right-button-container">
+        <a class="form-submit-login-link" href="{{ url_for('pick_winner', option_id=option_id) }}">Pick new winner</a>
+    </div>
+</div>
+{% endblock %}

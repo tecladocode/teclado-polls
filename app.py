@@ -16,8 +16,9 @@ DISCORD_GET_CURRENT_USER = "https://discordapp.com/api/users/@me"
 
 CLIENT_ID = "654393272189321237"
 DISCORD_REDIRECT_URI = os.environ.get("DISCORD_AUTH_REDIRECT", "http://127.0.0.1:5000/authorize")
+QUOTED_DISCORD_REDIRECT_URI = quote(DISCORD_REDIRECT_URI, safe="")
 
-FINAL_URI = f"{DISCORD_AUTH_URL}?client_id={CLIENT_ID}&redirect_uri={quote(DISCORD_REDIRECT_URI)}&response_type=code&scope=identify"
+FINAL_URI = f"{DISCORD_AUTH_URL}?client_id={CLIENT_ID}&redirect_uri={QUOTED_DISCORD_REDIRECT_URI}&response_type=code&scope=identify"
 
 
 @app.route("/")
@@ -90,14 +91,17 @@ def view_poll(poll_id):
     with sqlite3.connect("data.db") as connection:
         cursor = connection.execute("SELECT * FROM polls WHERE poll_id = ?", (poll_id,))
         poll = cursor.fetchone()
+        owner_viewing = False
+        if session.get("username") and session.get("discriminator"):
+            owner_viewing = poll[2] == session['username'] and poll[3] == session['discriminator']
 
         votes_cursor = connection.execute("""
-            SELECT options.option_text, COUNT(votes.vote) as count, COUNT(votes.vote) * 100.0 / sum(count(votes.vote)) over() as percentage FROM options
+            SELECT options.option_id, options.option_text, COUNT(votes.vote) as count, COUNT(votes.vote) * 100.0 / sum(count(votes.vote)) over() as percentage FROM options
             LEFT JOIN votes on options.option_id = votes.vote
             WHERE options.poll_id = ?
             GROUP BY options.option_text;""", (poll_id,))
         votes = votes_cursor.fetchall()
-    return render_template("view_poll.html", poll=poll, votes=votes, discord_uri=FINAL_URI)
+    return render_template("view_poll.html", poll=poll, votes=votes, owner_viewing=owner_viewing, discord_uri=FINAL_URI)
 
 
 @app.route("/create_poll", methods=["GET", "POST"])
@@ -130,3 +134,12 @@ def manage_polls():
 def logout():
     session.clear()
     return redirect(url_for("home"))
+
+
+@app.route("/pick_winner/<int:option_id>")
+def pick_winner(option_id):
+    with sqlite3.connect("data.db") as connection:
+        voters = connection.execute("SELECT * FROM votes WHERE vote = ?", (option_id,)).fetchall()
+        random_winner = connection.execute("SELECT * FROM votes WHERE vote = ? ORDER BY RANDOM() LIMIT 1;", (option_id,)).fetchone()
+
+        return render_template("winner.html", option_id=option_id, voters=voters, winner_username=random_winner[0], winner_discriminator=random_winner[1])

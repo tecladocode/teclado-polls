@@ -8,14 +8,19 @@
     {% for option in votes %}
         <tr class="vote-option">
             <td class="vote-name">
-                {{ option[0] }}
+                {{ option[1] }}
             </td>
             <td class="vote-percentage">
-                {{ option[2] | int }}%
+                {{ option[3] | int }}%
             </td>
             <td class="vote-chart-container">
-                <div class="vote-chart" style="width: {{ option[2] | round(0) }}%"></div>
+                <div class="vote-chart" style="width: {{ option[3] | round(0) }}%"></div>
             </td>
+        {%  if owner_viewing %}
+            <td>
+                <a href="{{ url_for('pick_winner', option_id=option[0]) }}">Pick winner</a>
+            </td>
+        {% endif %}
         </tr>
     {% endfor %}
     </table>

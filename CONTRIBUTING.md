@@ -14,6 +14,13 @@ The templates are in `templates/`.
 
 Some CSS and assets are in `static/`.
 
+## Running the app
+
+1. Clone the repository
+2. Create and activate a virtual environment
+3. Install the requirements with `pip install -r requirements.txt`
+4. Run the app with `flask run`.
+
 ## Tests
 
 At the moment there are no tests.
